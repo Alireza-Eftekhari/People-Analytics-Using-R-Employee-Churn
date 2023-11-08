@@ -1,79 +1,29 @@
+# First Look at The Data – The Structure
+
 HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
 MYdataset <- HRChurn
 str(MYdataset)
 View(MYdataset)
-View(HRChurn)
-View(MYdataset)
-View(HRChurn)
-View(MYdataset)
-View(MYdataset)
+
 library(plyr)
 install.packages("plyr")
-library(plyr)
-summary(HRChurch)
+
 summary(HRChurn)
+
 install.packages("dplyr")
-statusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-statusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-install.packages("dplyr")
-statusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
 library(dplyr)
-statusCount<- as.data.frame.matrix(MYdataset %>%
-+     group_by(STATUS_YEAR) %>%
-+     select(STATUS) %>%
-+     table())
+
 statusCount<- as.data.frame.matrix(MYdataset %>%
 group_by(STATUS_YEAR) %>%
 select(STATUS) %>%
 table())
 View(statusCount)
-View(statusCount)
-HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
-MYdataset <- HRChurn
-str(MYdataset)
-install.packages("plyr")
-library(plyr)
-install.packages("dplyr")
-library(dplyr)
-summary(MYdataset)
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-elect(STATUS) %>%
-table())
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-library(“dplyr”)
-library(dplyr)
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-+ group_by(STATUS_YEAR) %>%
-+ select(STATUS) %>%
-+ table())
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-StatusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-library(ggplot2)
+
+# Collect and Manage the Data
+
 install.packages("ggplot2")
 library(ggplot2)
+
 ggplot() + geom_bar(aes(y = ..count..,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
 library(ggplot2)
 ggplot() + geom_bar(aes(y =count,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
@@ -81,34 +31,83 @@ library(ggplot2)
 ggplot() + geom_bar(aes(y = after_stat(count),x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
 TerminatesData<- as.data.frame(MYdataset %>%
 filter(STATUS=="TERMINATED"))
+
 ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termtype_desc)),data=TerminatesData,position = position_stack())
 ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())
 ggplot() + geom_bar(aes(y = ..count..,x =as.factor(department_name),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())+
 theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
-library(caret)
-library(caret)
-library(caret)
-library(caret)
-install.packages("gower")
-library(caret)
+
 install.packages("caret")
 library(caret)
-## Loading required package: lattice
 featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-library(caret)
-## Loading required package: lattice
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-library(caret)
-## Loading required package: lattice
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-library(caret)
-## Loading required package: lattice
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-library(caret)
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-eaturePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="box",auto.key = list(columns = 2))
 featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="box",auto.key = list(columns = 2))
-View(TerminatesData)
-View(StatusCount)
-View(MYdataset)
-View(HRChurn)
+
+# Build The Model
+
+library(rattle)   
+library(magrittr) # For the %>% and %<>% operators
+HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
+
+set.seed(crv$seed) 
+MYnobs nrow(MYdataset) # 52692 observations 
+MYsample subset(MYdataset,STATUS_YEAR<=2014)
+MYvalidate NULL
+MYtest subset(MYdataset,STATUS_YEAR== 2015)
+
+MYinput c("age", "length_of_service",    "gender_full", "STATUS_YEAR", "BUSINESS_UNIT")
+
+MYnumeric c("age", "length_of_service", "STATUS_YEAR")
+
+MYcategoric c("gender_full", "BUSINESS_UNIT")
+
+MYtarget  "STATUS"
+MYrisk    NULL
+MYident   "EmployeeID"
+MYignore  c("recorddate_key", "birthdate_key", "orighiredate_key", "terminationdate_key", "city_name", "gender_short", "termreason_desc", "termtype_desc","department_name","job_title", "store_name")
+MYweights NULL
+
+MYTrainingData<-MYtrain[c(MYinput, MYtarget)]
+MYTestingData<-MYtest[c(MYinput, MYtarget)]
+
+# Linear model
+MYglm glm(STATUS ~ .,
+             data=MYtrain[c(MYinput, MYtarget)],
+             family=binomial(link="logit"))
+
+
+print(summary(MYglm))
+
+cat(sprintf("Log likelihood: %.3f (%d df)\n",
+            logLik(MYglm)[1],
+            attr(logLik(MYglm), "df")))
+cat(sprintf("Null/Residual deviance difference: %.3f (%d df)\n",
+            MYglm$null.deviance-MYglm$deviance,
+            MYglm$df.null-MYglm$df.residual))
+cat(sprintf("Chi-square p-value: %.8f\n",
+            dchisq(MYglm$null.deviance-MYglm$deviance,
+                   MYglm$df.null-MYglm$df.residual)))
+cat(sprintf("Pseudo R-Square (optimistic): %.8f\n",
+            cor(MYglm$y, MYglm$fitted.values)))
+cat('\n==== ANOVA ====\n\n') 
+## ==== ANOVA ====
+print(anova(MYglm, test="Chisq"))
+cat("\n")
+
+# Evaluate Model
+
+MYpr as.vector(ifelse(predict(MYglm, type=green: "response", newdata=MYtest[c(MYinput, MYtarget)]) > 0.5, green: "TERMINATED", "ACTIVE"))
+table(na.omit(MYtest[c(MYinput, MYtarget])]$STATUS, MYpr,
+      dnn=c("Actual", "Predicted"))
+pcme table(actual, cl)
+  nc nrow(x)
+  tbl cbind(x/length(actual),
+               Error=sapply(1:nc,
+                            function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) c("Actual", "Predicted")
+  return(tbl)
+}
+per pcme(MYtest[c(MYinput, MYtarget)]$STATUS, MYpr)
+round(per, 2)
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
