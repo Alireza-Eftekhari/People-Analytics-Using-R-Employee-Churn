@@ -1,0 +1,114 @@
+HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
+MYdataset <- HRChurn
+str(MYdataset)
+View(MYdataset)
+View(HRChurn)
+View(MYdataset)
+View(HRChurn)
+View(MYdataset)
+View(MYdataset)
+library(plyr)
+install.packages("plyr")
+library(plyr)
+summary(HRChurch)
+summary(HRChurn)
+install.packages("dplyr")
+statusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+statusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+install.packages("dplyr")
+statusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+library(dplyr)
+statusCount<- as.data.frame.matrix(MYdataset %>%
++     group_by(STATUS_YEAR) %>%
++     select(STATUS) %>%
++     table())
+statusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+View(statusCount)
+View(statusCount)
+HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
+MYdataset <- HRChurn
+str(MYdataset)
+install.packages("plyr")
+library(plyr)
+install.packages("dplyr")
+library(dplyr)
+summary(MYdataset)
+StatusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+StatusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+elect(STATUS) %>%
+table())
+StatusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+library(“dplyr”)
+library(dplyr)
+StatusCount<- as.data.frame.matrix(MYdataset %>%
++ group_by(STATUS_YEAR) %>%
++ select(STATUS) %>%
++ table())
+StatusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+StatusCount<- as.data.frame.matrix(MYdataset %>%
+group_by(STATUS_YEAR) %>%
+select(STATUS) %>%
+table())
+library(ggplot2)
+install.packages("ggplot2")
+library(ggplot2)
+ggplot() + geom_bar(aes(y = ..count..,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
+library(ggplot2)
+ggplot() + geom_bar(aes(y =count,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
+library(ggplot2)
+ggplot() + geom_bar(aes(y = after_stat(count),x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
+TerminatesData<- as.data.frame(MYdataset %>%
+filter(STATUS=="TERMINATED"))
+ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termtype_desc)),data=TerminatesData,position = position_stack())
+ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())
+ggplot() + geom_bar(aes(y = ..count..,x =as.factor(department_name),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())+
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
+library(caret)
+library(caret)
+library(caret)
+library(caret)
+install.packages("gower")
+library(caret)
+install.packages("caret")
+library(caret)
+## Loading required package: lattice
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
+library(caret)
+## Loading required package: lattice
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
+library(caret)
+## Loading required package: lattice
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
+library(caret)
+## Loading required package: lattice
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
+library(caret)
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
+eaturePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="box",auto.key = list(columns = 2))
+featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="box",auto.key = list(columns = 2))
+View(TerminatesData)
+View(StatusCount)
+View(MYdataset)
+View(HRChurn)
