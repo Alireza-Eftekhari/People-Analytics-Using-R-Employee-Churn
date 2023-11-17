@@ -1,113 +1,262 @@
-# First Look at The Data – The Structure
+# Load an R data frame
+> HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
+> MYdataset <- HRChurn
 
-HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
-MYdataset <- HRChurn
-str(MYdataset)
-View(MYdataset)
+# Display the internal structure
+> str(MYdataset)
 
-library(plyr)
-install.packages("plyr")
+# opening a spreadsheet-style of dataset
+> View(HRChurn)
 
-summary(HRChurn)
+# Installing plyr abd dplyr packages
+> install.packages("plyr")
+> install.packages("dplyr")
+> library(plyr)
+> library(dplyr)
 
-install.packages("dplyr")
+# summarizing the values in each column
+> summary(HRChurn)
+
+# Load the dplyr library for data manipulation
 library(dplyr)
 
-statusCount<- as.data.frame.matrix(MYdataset %>%
-group_by(STATUS_YEAR) %>%
-select(STATUS) %>%
-table())
-View(statusCount)
+# Create a data frame 'StatusCount' using the MYdataset
+# Group data by STATUS_YEAR
+# Select the STATUS column
+# Apply the table() function to count occurrences of each STATUS for each STATUS_YEAR
+# The pipe operator (%>%) simplifies the process of writing code for data manipulation
+StatusCount <- as.data.frame.matrix(MYdataset %>%
+  group_by(STATUS_YEAR) %>%
+  select(STATUS) %>%
+  table())
 
-# Collect and Manage the Data
+# Calculate the total count for each STATUS_YEAR by adding ACTIVE and TERMINATED counts
+StatusCount$TOTAL <- StatusCount$ACTIVE + StatusCount$TERMINATED
 
-install.packages("ggplot2")
+# Calculate the percentage of Terminated employees for each STATUS_YEAR
+StatusCount$PercentTerminated <- StatusCount$TERMINATED / (StatusCount$TOTAL) * 100
+
+# Display the resulting StatusCount data frame
+StatusCount
+
+# Calculate the Mean Percentage of Terminated Employee
+#`StatusCount$PercentTerminated`: Accesses the column 'PercentTerminated' in the StatusCount data frame.
+# The $ symbol in R is used for extracting components from objects. Specifically, object$name extracts the component named name from the object object
+mean(StatusCount$PercentTerminated)
+
+# Install and load the ggplot2 package
+# This line installs the ggplot2 package (commented out as it may contain a typo)
+Install.Packages("ggplot2")
+
+# Load the ggplot2 package
 library(ggplot2)
 
-ggplot() + geom_bar(aes(y = ..count..,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
-library(ggplot2)
-ggplot() + geom_bar(aes(y =count,x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
-library(ggplot2)
-ggplot() + geom_bar(aes(y = after_stat(count),x =as.factor(BUSINESS_UNIT),fill = as.factor(STATUS)),data=MYdataset,position = position_stack())
-TerminatesData<- as.data.frame(MYdataset %>%
-filter(STATUS=="TERMINATED"))
+# Create a bar plot using ggplot2
+ggplot(MYdataset, aes(x = BUSINESS_UNIT, fill = STATUS)) +
+  geom_bar(position = position_stack()) +  # Add a stacked bar chart
+  scale_fill_manual(values = c("ACTIVE" = "lightblue", "TERMINATED" = "yellow"))  # Customize fill colors
 
-ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termtype_desc)),data=TerminatesData,position = position_stack())
-ggplot() + geom_bar(aes(y = ..count..,x =as.factor(STATUS_YEAR),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())
-ggplot() + geom_bar(aes(y = ..count..,x =as.factor(department_name),fill = as.factor(termreason_desc)),data=TerminatesData,position = position_stack())+
-theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
+# Load the ggplot2 package
+library(ggplot2)
 
-install.packages("caret")
+# Load the ggplot2 package
+library(ggplot2)
+
+# Create a bar plot using ggplot2
+ggplot() +
+
+  # Add a bar layer to the plot
+  geom_bar(
+    aes(
+      y = ..count..,                # ..count.. is a special variable in ggplot2 representing the count of observations
+      x = as.factor(STATUS_YEAR),   # X-axis represents STATUS_YEAR as a factor
+      fill = as.factor(termtype_desc)  # Fill bars based on the factor levels of termtype_desc
+    ),
+    data = TerminatesData,          # Use the TerminatesData dataset
+    position = position_stack()     # Stack bars on top of each other
+  ) +
+
+  # Customize the fill colors manually
+  scale_fill_manual(
+    values = c("Voluntary" = "lightblue", "Involuntary" = "yellow"))
+
+# Load the ggplot2 package
+library(ggplot2)
+
+# Create a bar plot using ggplot2
+ggplot() +
+
+  # Add a bar layer to the plot
+  geom_bar(
+    aes(
+      y = ..count..,                    # ..count.. represents the count of observations
+      x = as.factor(STATUS_YEAR),       # X-axis represents STATUS_YEAR as a factor
+      fill = as.factor(termreason_desc) # Fill bars based on the factor levels of termreason_desc
+    ),
+    data = TerminatesData,              # Use the TerminatesData dataset
+    position = position_stack()         # Stack bars on top of each other
+  ) +
+
+  # Customize fill colors manually
+  scale_fill_manual(
+    values = c(
+      "Layoff" = "lightblue",          # Fill color for "Layoff" is light blue
+      "Resignaton" = "yellow",        # Fill color for "Resignaton" is yellow
+      "Retirement" = "lightgray"       # Fill color for "Retirement" is light gray))
+
+# Load the ggplot2 package
+library(ggplot2)
+
+# Create a bar plot using ggplot2
+ggplot() +
+
+  # Add a bar layer to the plot
+  geom_bar(
+    aes(
+      y = ..count..,                         # ..count.. represents the count of observations
+      x = as.factor(department_name),        # X-axis represents department_name as a factor
+      fill = as.factor(termreason_desc)      # Fill bars based on the factor levels of termreason_desc
+    ),
+    data = TerminatesData,                   # Use the TerminatesData dataset
+    position = position_stack()              # Stack bars on top of each other
+  ) +
+  # Customize fill colors manually
+  scale_fill_manual(
+    values = c(
+      "Layoff" = "lightblue",               # Fill color for "Layoff" is light blue
+      "Resignaton" = "yellow",             # Fill color for "Resignaton" is yellow
+      "Retirement" = "blue",                # Fill color for "Retirement" is blue
+      "Unknown" = "gray"                    # Fill color for "Unknown" is gray
+    )) +
+  # Adjust the angle, horizontal justification, and vertical justification of x-axis text
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+# How does Age and Length of Service affect termination?
+
+# Load the caret package
 library(caret)
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="density",auto.key = list(columns = 2))
-featurePlot(x=MYdataset[,6:7],y=MYdataset$STATUS,plot="box",auto.key = list(columns = 2))
 
-# Build The Model
+# Specify the features (columns 6 and 7) and the response variable (STATUS)
+features <- MYdataset[, 6:7]
+response_variable <- as.factor(MYdataset$STATUS)
 
-library(rattle)   
-library(magrittr) # For the %>% and %<>% operators
-HRChurn <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
+# Create a density plot using featurePlot
+featurePlot(
+  x = features,
+  y = response_variable,
+  plot = "density",
+  auto.key = list(columns = 2),
+  main = "Density Plot of Features by Status",
+  legend.title = "Status",
+  legend.labels = c("Active", "Terminated"),
+  col = c("orange", "lightblue"))
 
-set.seed(crv$seed) 
-MYnobs nrow(MYdataset) # 52692 observations 
-MYsample subset(MYdataset,STATUS_YEAR<=2014)
-MYvalidate NULL
-MYtest subset(MYdataset,STATUS_YEAR== 2015)
+# Box Plot of Features by Status
 
-MYinput c("age", "length_of_service",    "gender_full", "STATUS_YEAR", "BUSINESS_UNIT")
+# Load the caret package
+library(caret)
 
-MYnumeric c("age", "length_of_service", "STATUS_YEAR")
+# Create a box plot using featurePlot
+featurePlot(
+  x = MYdataset[, 6:7],
+  y = as.factor(MYdataset$STATUS),
+  plot = "box",
+  auto.key = list(columns = 2),
+  col = c("orange", "lightblue"),  # Specify the colors for each status
+  main = "Box Plot of Features by Status",
+  legend.title = "Status",
+  legend.labels = c("Active", "Terminated"))
 
-MYcategoric c("gender_full", "BUSINESS_UNIT")
+# Load required libraries
+library(rattle)
+library(magrittr)
 
-MYtarget  "STATUS"
-MYrisk    NULL
-MYident   "EmployeeID"
-MYignore  c("recorddate_key", "birthdate_key", "orighiredate_key", "terminationdate_key", "city_name", "gender_short", "termreason_desc", "termtype_desc","department_name","job_title", "store_name")
-MYweights NULL
+# Set a pre-defined value to reset the random seed for repeatability
+set.seed(42)
 
-MYTrainingData<-MYtrain[c(MYinput, MYtarget)]
-MYTestingData<-MYtest[c(MYinput, MYtarget)]
+# Load the dataset
+MFG10YearTerminationData <- read.csv("C://Users/alire/Downloads/Datasets-Tutorial-People-Analytics/HRChurn.csv")
 
-# Linear model
-MYglm glm(STATUS ~ .,
-             data=MYtrain[c(MYinput, MYtarget)],
-             family=binomial(link="logit"))
+# Create training and testing datasets
+MYnobs <- nrow(MFG10YearTerminationData)
+MYsample <- subset(MFG10YearTerminationData, STATUS_YEAR <= 2014)
+MYvalidate <- NULL
+MYtest <- subset(MFG10YearTerminationData, STATUS_YEAR == 2015)
 
+# Variable selections
+MYinput <- c("age", "length_of_service", "gender_full", "STATUS_YEAR", "BUSINESS_UNIT")
+MYnumeric <- c("age", "length_of_service", "STATUS_YEAR")
+MYcategoric <- c("gender_full", "BUSINESS_UNIT")
+MYtarget <- "STATUS"
+MYrisk <- NULL
+MYident <- "EmployeeID"
+MYignore <- c("recorddate_key", "birthdate_key", "orighiredate_key", "terminationdate_key", "city_name", "gender_short", "termreason_desc", "termtype_desc", "department_name", "job_title", "store_name")
+MYweights <- NULL
 
-print(summary(MYglm))
+# Create training and testing datasets with selected variables
+MYTrainingData <- MYsample[c(MYinput, MYtarget)]
+MYTestingData <- MYtest[c(MYinput, MYtarget)]
 
-cat(sprintf("Log likelihood: %.3f (%d df)\n",
-            logLik(MYglm)[1],
-            attr(logLik(MYglm), "df")))
-cat(sprintf("Null/Residual deviance difference: %.3f (%d df)\n",
-            MYglm$null.deviance-MYglm$deviance,
-            MYglm$df.null-MYglm$df.residual))
-cat(sprintf("Chi-square p-value: %.8f\n",
-            dchisq(MYglm$null.deviance-MYglm$deviance,
-                   MYglm$df.null-MYglm$df.residual)))
-cat(sprintf("Pseudo R-Square (optimistic): %.8f\n",
-            cor(MYglm$y, MYglm$fitted.values)))
-cat('\n==== ANOVA ====\n\n') 
-## ==== ANOVA ====
-print(anova(MYglm, test="Chisq"))
-cat("\n")
+# Load required libraries
+library(rattle)
+library(rpart, quietly = TRUE)
 
-# Evaluate Model
+# Reset the random number seed to obtain the same results each time.
+set.seed(crv$seed)
 
-MYpr as.vector(ifelse(predict(MYglm, type=green: "response", newdata=MYtest[c(MYinput, MYtarget)]) > 0.5, green: "TERMINATED", "ACTIVE"))
-table(na.omit(MYtest[c(MYinput, MYtarget])]$STATUS, MYpr,
-      dnn=c("Actual", "Predicted"))
-pcme table(actual, cl)
-  nc nrow(x)
-  tbl cbind(x/length(actual),
-               Error=sapply(1:nc,
-                            function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
-  names(attr(tbl, "dimnames")) c("Actual", "Predicted")
+# Build the Decision Tree model.
+MYrpart <- rpart(
+  STATUS ~ .,
+  data = MYTrainingData,
+  method = "class",
+  parms = list(split = "information"),
+  control = rpart.control(usesurrogate = 0, maxsurrogate = 0))
+
+# Generate a textual view of the Decision Tree model.
+#print(MYrpart)
+#printcp(MYrpart)
+#cat("\n")
+
+# Plot the resulting Decision Tree.
+fancyRpartPlot(MYrpart, main = "Decision Tree MFG10YearTerminationData $ STATUS")
+
+# Rattle timestamp: 2016-03-25 18:50:22 x86_64-w64-mingw32 
+# Evaluate model performance. 
+# Generate an Error Matrix for the Decision Tree model.
+# Obtain the response from the Decision Tree model.
+
+MYpr <- predict(MYrpart, newdata = MYTestingData[c(MYinput, MYtarget)], type = "class")
+
+# Generate the confusion matrix showing counts.
+conf_matrix <- table(MYTestingData$STATUS, MYpr,
+                    dnn = c("Actual", "Predicted"))
+
+# Display the confusion matrix
+conf_matrix
+
+# Generate the confusion matrix showing proportions.
+pcme <- function(actual, cl) {
+  nc <- nrow(cl)
+  tbl <- cbind(cl / length(actual),
+               Error = sapply(1:nc,
+                              function(r) round(sum(cl[r, -r]) / sum(cl[r, ]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
   return(tbl)
 }
-per pcme(MYtest[c(MYinput, MYtarget)]$STATUS, MYpr)
+
+# Apply the pcme function to your actual and predicted values
+per <- pcme(MYTestingData$STATUS, table(MYTestingData$STATUS, MYpr))
+# Display the confusion matrix with proportions
 round(per, 2)
-cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
-cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+# Calculate the overall error percentage.
+> cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+2
+
+# Calculate the averaged class error percentage.
+> cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+30
+
+
+
 
